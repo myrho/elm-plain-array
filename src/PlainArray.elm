@@ -5,6 +5,7 @@ module PlainArray exposing
   , get, set
   , slice, toList, toIndexedList
   , map, indexedMap, filter, foldl, foldr
+  , resizelRepeat, splitAt
   )
 
 {-| A library for immutable arrays. The elements in an array must have the
@@ -15,7 +16,7 @@ the original API.
 # Arrays
 @docs Array
 
-# Creating Arrays
+# Creating Arrays 
 @docs empty, repeat, initialize, fromList
 
 # Basics
@@ -29,6 +30,9 @@ the original API.
 
 # Mapping, Filtering, and Folding
 @docs map, indexedMap, filter, foldl, foldr
+
+# Extra
+@docs resizelRepeat, splitAt
 -}
 
 import Native.PlainArray
@@ -239,3 +243,43 @@ isEmpty array =
 append : Array a -> Array a -> Array a
 append =
   Native.PlainArray.append
+
+
+{-| Resize an array from the left, padding the right-hand side with the given value.
+-}
+resizelRepeat : Int -> a -> Array a -> Array a
+resizelRepeat n val xs =
+    let
+        l =
+            length xs
+    in
+        if l > n then
+            slice 0 n xs
+        else if l < n then
+            append xs (repeat (n - l) val)
+        else
+            xs
+
+
+
+{-| Split an array into two arrays, the first ending at and the second starting at the given index
+-}
+splitAt : Int -> Array a -> ( Array a, Array a )
+splitAt index xs =
+    -- TODO: refactor (written this way to help avoid Array bugs)
+    let
+        len =
+            length xs
+    in
+        case ( index > 0, index < len ) of
+            ( True, True ) ->
+                ( slice 0 index xs, slice index len xs )
+
+            ( True, False ) ->
+                ( xs, empty )
+
+            ( False, True ) ->
+                ( empty, xs )
+
+            ( False, False ) ->
+                ( empty, empty )
