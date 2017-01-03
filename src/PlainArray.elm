@@ -5,7 +5,7 @@ module PlainArray exposing
   , get, set
   , slice, toList, toIndexedList
   , map, indexedMap, filter, foldl, foldr
-  , resizelRepeat, splitAt
+  , resizelRepeat, splitAt, removeAt
   )
 
 {-| A library for immutable arrays. The elements in an array must have the
@@ -32,7 +32,7 @@ the original API.
 @docs map, indexedMap, filter, foldl, foldr
 
 # Extra
-@docs resizelRepeat, splitAt
+@docs resizelRepeat, splitAt, removeAt
 -}
 
 import Native.PlainArray
@@ -283,3 +283,22 @@ splitAt index xs =
 
             ( False, False ) ->
                 ( empty, empty )
+
+
+{-| Remove the element at the given index
+-}
+removeAt : Int -> Array a -> Array a
+removeAt index xs =
+    -- TODO: refactor (written this way to help avoid Array bugs)
+    let
+        ( xs0, xs1 ) =
+            splitAt index xs
+
+        len1 =
+            length xs1
+    in
+        if len1 == 0 then
+            xs0
+        else
+            append xs0 (slice 1 len1 xs1)
+
