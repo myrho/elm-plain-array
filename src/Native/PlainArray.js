@@ -2,11 +2,11 @@
 
 var _user$project$Native_PlainArray = function() {
 
-// An empty array.
-var empty = {
-	table: []
-};
-
+function empty_(table) {
+  return {
+    table : table || []
+  }
+}
 
 function get(i, array)
 {
@@ -49,7 +49,7 @@ function initialize(len, f)
 {
 	if (len <= 0)
 	{
-		return empty;
+    return empty_();
 	}
 
   var table = new Array(len);
@@ -67,7 +67,7 @@ function fromList(list)
 {
 	if (list.ctor === '[]')
 	{
-		return empty;
+    return empty_();
 	}
 
 	// Allocate M sized blocks (table) and write list elements to it.
@@ -200,7 +200,7 @@ function fromJSArray(jsArray)
 {
   if (jsArray.length === 0)
     {
-      return empty;
+      return empty_();
     }
   return { 
     table: jsArray
@@ -208,7 +208,6 @@ function fromJSArray(jsArray)
 }
 
 return {
-	empty: empty,
 	fromList: fromList,
 	toList: toList,
 	initialize: F2(initialize),

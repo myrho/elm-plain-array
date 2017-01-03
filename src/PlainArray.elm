@@ -151,7 +151,7 @@ filter isOkay arr =
       else
         xs
   in
-    Native.PlainArray.foldl update Native.PlainArray.empty arr
+    Native.PlainArray.foldl update empty arr
 
 {-| Return an empty array.
 
@@ -159,7 +159,7 @@ filter isOkay arr =
 -}
 empty : Array a
 empty =
-  Native.PlainArray.empty
+  fromList []
 
 
 {-| Push an element to the end of an array.

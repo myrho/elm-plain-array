@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "summary": "Replacement for buggy elm-lang/core's Array using plain JS arrays",
     "repository": "https://github.com/myrho/elm-plain-array.git",
     "license": "BSD3",
