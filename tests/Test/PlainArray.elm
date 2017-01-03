@@ -46,17 +46,17 @@ tests =
     let
         creationTests =
             describe "Creation"
-                [ test "empty" <| \() -> Expect.equal Array.empty (Array.fromList [])
+                [ test "empty" <| \() -> Expect.equal (Array.empty ()) (Array.fromList [])
                 , test "initialize" <| \() -> Expect.equal (Array.initialize 4 identity) (Array.fromList [ 0, 1, 2, 3 ])
                 , test "initialize 2" <| \() -> Expect.equal (Array.initialize 4 (\n -> n * n)) (Array.fromList [ 0, 1, 4, 9 ])
                 , test "initialize 3" <| \() -> Expect.equal (Array.initialize 4 (always 0)) (Array.fromList [ 0, 0, 0, 0 ])
-                , test "initialize Empty" <| \() -> Expect.equal (Array.initialize 0 identity) Array.empty
+                , test "initialize Empty" <| \() -> Expect.equal (Array.initialize 0 identity) (Array.empty ())
                 , test "initialize 4" <| \() -> Expect.equal (Array.initialize 2 (always 0)) (Array.fromList [ 0, 0 ])
-                , test "initialize negative" <| \() -> Expect.equal (Array.initialize -1 identity) Array.empty
+                , test "initialize negative" <| \() -> Expect.equal (Array.initialize -1 identity) (Array.empty ())
                 , test "repeat" <| \() -> Expect.equal (Array.repeat 5 40) (Array.fromList [ 40, 40, 40, 40, 40 ])
                 , test "repeat 2" <| \() -> Expect.equal (Array.repeat 5 0) (Array.fromList [ 0, 0, 0, 0, 0 ])
                 , test "repeat 3" <| \() -> Expect.equal (Array.repeat 3 "cat") (Array.fromList [ "cat", "cat", "cat" ])
-                , test "fromList" <| \() -> Expect.equal (Array.fromList []) Array.empty
+                , test "fromList" <| \() -> Expect.equal (Array.fromList []) (Array.empty ())
                 ]
 
         basicsTests =
@@ -65,8 +65,8 @@ tests =
                 , test "length - Long" <| \() -> Expect.equal 10000 (Array.length (Array.repeat 10000 0))
                 , test "push" <| \() -> Expect.equal (Array.fromList [ 1, 2, 3 ]) (Array.push 3 (Array.fromList [ 1, 2 ]))
                 , test "append" <| \() -> Expect.equal [ 42, 42, 81, 81, 81 ] (Array.toList (Array.append (Array.repeat 2 42) (Array.repeat 3 81)))
-                , test "appendEmpty 1" <| \() -> Expect.equal (List.range 1 33) (Array.toList (Array.append Array.empty (Array.fromList <| List.range 1 33)))
-                , test "appendEmpty 2" <| \() -> Expect.equal (List.range 1 33) (Array.toList (Array.append (Array.fromList <| List.range 1 33) Array.empty))
+                , test "appendEmpty 1" <| \() -> Expect.equal (List.range 1 33) (Array.toList (Array.append (Array.empty ()) (Array.fromList <| List.range 1 33)))
+                , test "appendEmpty 2" <| \() -> Expect.equal (List.range 1 33) (Array.toList (Array.append (Array.fromList <| List.range 1 33) (Array.empty ())))
                 , test "appendSmall 1" <| \() -> Expect.equal (List.range 1 33) (Array.toList (Array.append (Array.fromList <| List.range 1 30) (Array.fromList <| List.range 31 33)))
                 , test "appendSmall 2" <| \() -> Expect.equal (List.range 1 33) (Array.toList (Array.append (Array.fromList <| List.range 1 3) (Array.fromList <| List.range 4 33)))
                 , test "appendAndSlice" <| \() -> Expect.equal (List.range 0 100) (Array.toList holeArray)

@@ -151,14 +151,14 @@ filter isOkay arr =
       else
         xs
   in
-    Native.PlainArray.foldl update empty arr
+    Native.PlainArray.foldl update (empty ()) arr
 
 {-| Return an empty array.
 
     length empty == 0
 -}
-empty : Array a
-empty =
+empty : () -> Array a
+empty _ =
   fromList []
 
 
@@ -276,13 +276,13 @@ splitAt index xs =
                 ( slice 0 index xs, slice index len xs )
 
             ( True, False ) ->
-                ( xs, empty )
+                ( xs, empty ())
 
             ( False, True ) ->
-                ( empty, xs )
+                ( empty (), xs )
 
             ( False, False ) ->
-                ( empty, empty )
+                ( empty (), empty () )
 
 
 {-| Remove the element at the given index
