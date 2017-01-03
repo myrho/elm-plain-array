@@ -1,12 +1,12 @@
 {
     "version": "1.0.0",
-    "summary": "Replacement for buggy elm/core's Array using plain JS arrays",
+    "summary": "Replacement for buggy elm-lang/core's Array using plain JS arrays",
     "repository": "https://github.com/myrho/elm-plain-array.git",
     "license": "BSD3",
     "source-directories": [
         "src"
     ],
-    "exposed-modules": [],
+    "exposed-modules": ["PlainArray"],
     "native-modules" : true,
     "dependencies": {
         "elm-lang/core": "5.0.0 <= v < 6.0.0"

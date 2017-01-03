@@ -7,8 +7,10 @@ module PlainArray exposing
   , map, indexedMap, filter, foldl, foldr
   )
 
-{-| A library for fast immutable arrays. The elements in an array must have the
-same type. The arrays map to Javascript arrays.
+{-| A library for immutable arrays. The elements in an array must have the
+same type. It's intended as a quick replacement of the buggy elm-lang/core's 
+Array implementation and uses plain JS arrays under the hood. This API mirrors 
+the original API.  
 
 # Arrays
 @docs Array
