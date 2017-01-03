@@ -1,6 +1,6 @@
 //import Native.List //
 
-var _myrho$elm_plain_array$Native_PlainArray = function() {
+var _user$project$Native_PlainArray = function() {
 
 // An empty array.
 var empty = {
