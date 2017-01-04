@@ -4,7 +4,7 @@ var _user$project$Native_PlainArray = function() {
 
 function empty_(table) {
   return {
-    table : table || []
+    table : clone(table || [])
   }
 }
 
@@ -34,14 +34,17 @@ function set(i, item, array)
 	{
 		return array;
 	}
-	return unsafeSet(i, item, array);
+  return unsafeSet(i, item, array);
 }
 
 
 function unsafeSet(i, item, array)
 {
-  array.table[i] = item;
-  return array;
+  var table = clone(array.table);
+  table[i] = item;
+  return {
+    table : table
+  }
 }
 
 
@@ -93,8 +96,11 @@ function fromList(list)
 // Pushes an item via js push
 function push(item, a)
 {
-  a.table.push(item);
-  return a;
+  var table = clone(a.table);
+  table.push(item);
+  return {
+    table : table
+  }
 }
 
 // Converts an array into a list of elements.
@@ -193,7 +199,7 @@ function length(array)
 
 function toJSArray(array)
 {
-  return array.table;
+  return clone(array.table)
 }
 
 function fromJSArray(jsArray)
@@ -203,8 +209,12 @@ function fromJSArray(jsArray)
       return empty_();
     }
   return { 
-    table: jsArray
+    table: clone(jsArray)
   }
+}
+
+function clone(array) {
+  return array.slice(0);
 }
 
 return {
